@@ -1,13 +1,13 @@
 {
-  "name": "mips-x",
-  "displayName": "MIPS-X Assembler",
-  "description": "Complete MIPS Assembly development environment with syntax highlighting, IntelliSense, and integrated runner",
+  "name": "mipsduino-assembler",
+  "displayName": "MIPSduino Assembler",
+  "description": "Complete MIPS Assembly development environment with MicroCoreASM hardware integration",
   "version": "2.0.0",
-  "publisher": "mipsx-team",
+  "publisher": "mipsduino",
   "icon": "images/icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mipsx/vscode-extension"
+    "url": "https://github.com/mipsduino/MIPSduino"
   },
   "engines": {
     "vscode": "^1.75.0"
@@ -21,8 +21,9 @@
     "mips",
     "assembly",
     "assembler",
-    "mars",
-    "computer architecture"
+    "arduino",
+    "microprocessor",
+    "MicroCoreASM"
   ],
   "activationEvents": [
     "*"
@@ -54,29 +55,29 @@
     ],
     "commands": [
       {
-        "command": "mips-x.run",
-        "title": "MIPS-X: Run Current File",
+        "command": "mipsduino.run",
+        "title": "MIPSduino: Run Current File",
         "icon": "$(play)"
       },
       {
-        "command": "mips-x.build",
-        "title": "MIPS-X: Build (Assemble Only)",
+        "command": "mipsduino.build",
+        "title": "MIPSduino: Build for MicroCoreASM",
         "icon": "$(tools)"
       },
       {
-        "command": "mips-x.showSymbols",
-        "title": "MIPS-X: Show Symbol Table"
+        "command": "mipsduino.showSymbols",
+        "title": "MIPSduino: Show Symbol Table"
       }
     ],
     "keybindings": [
       {
-        "command": "mips-x.run",
+        "command": "mipsduino.run",
         "key": "ctrl+shift+r",
         "mac": "cmd+shift+r",
         "when": "editorLangId == mips"
       },
       {
-        "command": "mips-x.build",
+        "command": "mipsduino.build",
         "key": "ctrl+shift+b",
         "mac": "cmd+shift+b",
         "when": "editorLangId == mips"
@@ -86,19 +87,19 @@
       "editor/context": [
         {
           "when": "resourceLangId == mips",
-          "command": "mips-x.run",
+          "command": "mipsduino.run",
           "group": "navigation"
         },
         {
           "when": "resourceLangId == mips",
-          "command": "mips-x.build",
+          "command": "mipsduino.build",
           "group": "navigation"
         }
       ],
       "editor/title": [
         {
           "when": "resourceLangId == mips",
-          "command": "mips-x.run",
+          "command": "mipsduino.run",
           "group": "navigation"
         }
       ]
@@ -110,19 +111,19 @@
       }
     ],
     "configuration": {
-      "title": "MIPS-X",
+      "title": "MIPSduino Assembler",
       "properties": {
-        "mipsx.executablePath": {
+        "mipsduino.executablePath": {
           "type": "string",
           "default": "",
-          "description": "Path to mipsx executable. Leave empty to auto-detect."
+          "description": "Path to MIPSduino executable. Leave empty to auto-detect."
         },
-        "mipsx.showOutputOnRun": {
+        "mipsduino.showOutputOnRun": {
           "type": "boolean",
           "default": true,
           "description": "Automatically show output panel when running code"
         },
-        "mipsx.clearOutputBeforeRun": {
+        "mipsduino.clearOutputBeforeRun": {
           "type": "boolean",
           "default": true,
           "description": "Clear output panel before each run"

@@ -1,6 +1,6 @@
-# IronCoreAssembler
+# MIPSduino Assembler
 
-A modern, high-performance MIPS Assembly development environment featuring the **IronCore MIPS-X Toolchain v2.0**.
+A modern, high-performance MIPS Assembly development environment featuring the **MIPSduino Assembler v2.0** with **MicroCoreASM** hardware integration.
 
 ![Version](https://img.shields.io/badge/version-2.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -8,8 +8,8 @@ A modern, high-performance MIPS Assembly development environment featuring the *
 
 ## 🚀 What's New in v2.0
 
-- **Integrated Toolchain**: All utility scripts consolidated into a single powerful `mipsx` CLI.
-- **Microprocessor Ready**: Export raw binary files (`.bin`) for direct loading into hardware.
+- **Integrated Toolchain**: All utility scripts consolidated into a single powerful `MIPSduino` CLI.
+- **MicroCoreASM Ready**: Export raw binary files (`.bin`) for direct loading into hardware.
 - **Arduino Support**: Export C/C++ header files (`.h`) containing instruction arrays for Arduino/ESP32 projects.
 - **Enhanced Symbols**: Detailed memory address mapping and symbol table analysis integrated into the CLI.
 - **Premium UI**: Clean, colorized terminal output for a better developer experience.
@@ -19,48 +19,53 @@ A modern, high-performance MIPS Assembly development environment featuring the *
 
 ### Installation
 
+**Windows:**
+1. Download [**MIPSduino_Setup.exe**](mips-toolchain/releases/MIPSduino_Setup.exe).
+2. Run the installer (it will add MIPSduino to your system PATH).
+3. Open a new terminal and type `MIPSduino` to verify.
+
 **Linux (Debian/Ubuntu):**
 ```bash
-sudo dpkg -i mips-toolchain/releases/mipsx_2.0.0_amd64.deb
+sudo dpkg -i mips-toolchain/releases/MIPSduino_2.0.0_amd64.deb
 ```
 
 **VS Code Extension:**
 ```bash
-code --install-extension mips-toolchain/releases/mips-x-2.0.0.vsix
+code --install-extension mips-toolchain/releases/MIPSduino-2.0.0.vsix
 ```
 
 ### Usage
 
 **Run MIPS assembly:**
 ```bash
-mipsx run program.asm
+MIPSduino run program.asm
 ```
 
-**Build for Microprocessor/Arduino:**
+**Build for MicroCoreASM (Hardware/Arduino):**
 ```bash
 # Export to all formats (hex, bin, h)
-mipsx build program.asm -f all
+MIPSduino build program.asm
 
 # Export specifically for Arduino
-mipsx build program.asm -f arduino -o program.h
+MIPSduino build program.asm -f arduino -o program.h
 ```
 
 **Show Symbol Table & Addresses:**
 ```bash
-mipsx symbols program.asm
+MIPSduino symbols program.asm
 ```
 
-## 🔌 Hardware Integration Guide
+## 🔌 Hardware Integration Guide (MicroCoreASM)
 
 ### 📟 Using with Microprocessors
 To load your MIPS code into a hardware microprocessor or FPGA:
-1.  **Generate Binary**: Run `mipsx build program.asm -f bin`.
+1.  **Generate Binary**: Run `MIPSduino build program.asm -f bin`.
 2.  **Output**: This creates a `program.bin` file containing raw machine code.
 3.  **Loading**: Use your hardware programmer or bootloader to flash this binary directly into the instruction memory (starting at address `0x00400000` by default).
 
 ### ♾️ Using with Arduino
 To use MIPS instructions within an Arduino/ESP32 sketch:
-1.  **Generate Header**: Run `mipsx build program.asm -f arduino -o mips_code.h`.
+1.  **Generate Header**: Run `MIPSduino build program.asm -f arduino -o mips_code.h`.
 2.  **Include**: Copy `mips_code.h` to your Arduino project folder.
 3.  **Code**:
     ```cpp
@@ -93,8 +98,8 @@ cd mips-toolchain/build
 
 ```
 IronCoreAssembler/
-├── mips-toolchain/          # MIPS-X Toolchain Source
-│   ├── cli/                 # Redesigned CLI (mipsx.py)
+├── mips-toolchain/          # MIPSduino Assembler Toolchain Source
+│   ├── cli/                 # Redesigned CLI (MIPSduino.py)
 │   ├── extension/           # VS Code extension
 │   ├── build/               # Build & Packaging scripts
 │   └── releases/            # Distribution packages
@@ -106,9 +111,9 @@ IronCoreAssembler/
 
 ## 🌟 Features
 
-### MIPS-X CLI v2.0
+### MIPSduino CLI v2.0
 - **Run**: Execute MIPS Assembly files (CLI or GUI mode)
-- **Build**: Assemble to Hex, Binary, or Arduino-ready C headers
+- **Build**: Assemble to Hex, Binary, or Arduino-ready C headers (MicroCoreASM)
 - **Symbols**: Integrated symbol table and memory address mapping
 - **Cross-Platform**: Native support for Linux, Windows, and macOS
 - **Standalone**: No Python required after building
@@ -132,4 +137,4 @@ MIT License - See LICENSE file for details
 
 **Version**: 2.0.0  
 **Last Updated**: December 19, 2025  
-**Copyright**: All copyright owned by Anon Open Source
+**Copyright**: MIPSduino Team & Anon Open Source

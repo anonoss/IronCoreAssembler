@@ -2,8 +2,8 @@
 cd "$(dirname "$0")"
 
 # Ensure the binary exists
-if [ ! -f "dist/mipsx" ]; then
-    echo "Error: dist/mipsx not found. Run build.sh first."
+if [ ! -f "dist/MIPSduino" ]; then
+    echo "Error: dist/MIPSduino not found. Run build.sh first."
     exit 1
 fi
 
@@ -13,15 +13,13 @@ RPMBUILD_DIR="$BUILD_ROOT/rpmbuild"
 mkdir -p "$RPMBUILD_DIR"/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 
 # Copy source (executable) to SOURCES
-cp dist/mipsx "$RPMBUILD_DIR/SOURCES/"
+cp dist/MIPSduino "$RPMBUILD_DIR/SOURCES/"
 
 # Copy spec file to SPECS
-cp mipsx_rpm.spec "$RPMBUILD_DIR/SPECS/"
+cp MIPSduino_rpm.spec "$RPMBUILD_DIR/SPECS/"
 
 # Build RPM
-# We use --nocheck to avoid some permission issues if possible, though mostly unrelated.
-# The main fix is the path.
-rpmbuild --define "_topdir $RPMBUILD_DIR" -bb "$RPMBUILD_DIR/SPECS/mipsx_rpm.spec"
+rpmbuild --define "_topdir $RPMBUILD_DIR" -bb "$RPMBUILD_DIR/SPECS/MIPSduino_rpm.spec"
 
 # Move result
 find "$RPMBUILD_DIR/RPMS" -name "*.rpm" -exec cp {} . \;

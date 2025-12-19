@@ -1,4 +1,4 @@
-# MIPS-X Toolchain
+# MIPSduino Toolchain
 
 ![Version](https://img.shields.io/badge/version-2.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -12,9 +12,9 @@ A modern, cross-platform toolchain for MIPS Assembly development, powered by MAR
 
 | Platform | File | Description |
 |----------|------|-------------|
-| **Linux (Debian/Ubuntu)** | [**mipsx_2.0.0_amd64.deb**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/mipsx_2.0.0_amd64.deb) | `.deb` installer |
-| **Windows** | [**mipsx.exe**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/mipsx.exe) | Executable file |
-| **VS Code** | [**mips-x-2.0.0.vsix**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/mips-x-2.0.0.vsix) | Extension |
+| **Linux (Debian/Ubuntu)** | [**MIPSduino_2.0.0_amd64.deb**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/MIPSduino_2.0.0_amd64.deb) | `.deb` installer |
+| **Windows** | [**MIPSduino.exe**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/MIPSduino.exe) | Executable file |
+| **VS Code** | [**MIPSduino-2.0.0.vsix**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/MIPSduino-2.0.0.vsix) | Extension |
 
 > **Note:** Java Runtime Environment (JRE) 8 or higher is required.
 
@@ -41,53 +41,53 @@ A modern, cross-platform toolchain for MIPS Assembly development, powered by MAR
 
 ### Linux
 ```bash
-sudo dpkg -i mipsx_2.0.0_amd64.deb
+sudo dpkg -i MIPSduino_2.0.0_amd64.deb
 ```
 
 ### Windows
-1. Download `mipsx.exe`.
+1. Download `MIPSduino.exe`.
 2. Add it to your PATH.
 
 ### VS Code Extension
 1. Open VS Code.
 2. Extensions → `...` menu → "Install from VSIX...".
-3. Select `mips-x-2.0.0.vsix`.
+3. Select `MIPSduino-2.0.0.vsix`.
 
 ## 🚀 Usage
 
 ### CLI Commands
 ```bash
 # Run a MIPS assembly file
-mipsx run program.asm
+MIPSduino run program.asm
 
 # Build for Arduino
-mipsx build program.asm -f arduino -o program.h
+MIPSduino build program.asm -f arduino -o program.h
 
 # Build for Microprocessor (Binary)
-mipsx build program.asm -f bin
+MIPSduino build program.asm -f bin
 
 # Show symbol table
-mipsx symbols program.asm
+MIPSduino symbols program.asm
 ```
 
 ### VS Code Extension
 1. Open any `.asm` file.
 2. Press `Ctrl+Shift+R` to run.
-3. Or right-click → "MIPS-X: Run Current File".
+3. Or right-click → "MIPSduino: Run Current File".
 
 ## 📚 Documentation
 
 ### CLI Reference
 ```
-mipsx run <file.asm> [--no-gui]
+MIPSduino run <file.asm> [--no-gui]
     Run a MIPS assembly file
 
-mipsx build <file.asm> [-f format] [-o output]
+MIPSduino build <file.asm> [-f format] [-o output]
     Assemble to machine code
     Formats: hex, bin, arduino, all
     -o, --output    Output file path
 
-mipsx symbols <file.asm>
+MIPSduino symbols <file.asm>
     Show symbol table and memory addresses
 ```
 

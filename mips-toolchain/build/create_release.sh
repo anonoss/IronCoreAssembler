@@ -1,11 +1,11 @@
 #!/bin/bash
-# Complete Release Builder for MIPS-X Toolchain
+# Complete Release Builder for MIPSduino Assembler
 # This script creates all distribution packages
 
 set -e  # Exit on error
 
 echo "======================================"
-echo "MIPS-X Complete Release Builder"
+echo "MIPSduino Assembler Release Builder"
 echo "======================================"
 echo ""
 
@@ -28,7 +28,7 @@ else
     exit 1
 fi
 
-if [ ! -f "dist/mipsx" ]; then
+if [ ! -f "dist/MIPSduino" ]; then
     echo "Error: Executable build failed"
     exit 1
 fi
@@ -39,9 +39,9 @@ echo "Step 2: Creating .deb package..."
 echo "--------------------------------"
 if [ -f "package_deb.sh" ]; then
     ./package_deb.sh
-    if [ -f "mipsx_${VERSION}_amd64.deb" ]; then
-        cp mipsx_${VERSION}_amd64.deb "$RELEASE_DIR/"
-        echo "✓ .deb package created: $RELEASE_DIR/mipsx_${VERSION}_amd64.deb"
+    if [ -f "MIPSduino_${VERSION}_amd64.deb" ]; then
+        cp MIPSduino_${VERSION}_amd64.deb "$RELEASE_DIR/"
+        echo "✓ .deb package created: $RELEASE_DIR/MIPSduino_${VERSION}_amd64.deb"
     fi
 else
     echo "Warning: package_deb.sh not found, skipping .deb"
@@ -52,9 +52,9 @@ echo "Step 3: Creating .rpm package..."
 echo "--------------------------------"
 if [ -f "package_rpm.sh" ]; then
     ./package_rpm.sh
-    if [ -f "mipsx-${VERSION}-1.x86_64.rpm" ]; then
-        cp mipsx-${VERSION}-1.x86_64.rpm "$RELEASE_DIR/"
-        echo "✓ .rpm package created: $RELEASE_DIR/mipsx-${VERSION}-1.x86_64.rpm"
+    if [ -f "MIPSduino-${VERSION}-1.x86_64.rpm" ]; then
+        cp MIPSduino-${VERSION}-1.x86_64.rpm "$RELEASE_DIR/"
+        echo "✓ .rpm package created: $RELEASE_DIR/MIPSduino-${VERSION}-1.x86_64.rpm"
     fi
 else
     echo "Warning: package_rpm.sh not found, skipping .rpm"
@@ -63,8 +63,8 @@ echo ""
 
 echo "Step 4: Creating standalone binary archive..."
 echo "----------------------------------------------"
-BINARY_ARCHIVE="$RELEASE_DIR/mipsx-${VERSION}-linux-x86_64.tar.gz"
-tar -czf "$BINARY_ARCHIVE" -C dist mipsx
+BINARY_ARCHIVE="$RELEASE_DIR/MIPSduino-${VERSION}-linux-x86_64.tar.gz"
+tar -czf "$BINARY_ARCHIVE" -C dist MIPSduino
 echo "✓ Binary archive created: $BINARY_ARCHIVE"
 echo ""
 
@@ -74,20 +74,9 @@ EXTENSION_DIR="$SCRIPT_DIR/../extension"
 if [ -d "$EXTENSION_DIR" ]; then
     cd "$EXTENSION_DIR"
     
-    # Check if vsce is installed
-    if ! command -v vsce &> /dev/null; then
-        echo "Installing vsce (VS Code Extension Manager)..."
-        npm install -g vsce || echo "Warning: Could not install vsce globally, trying local..."
-        npm install vsce
-    fi
-    
     # Package the extension
-    if command -v vsce &> /dev/null; then
-        vsce package -o "$RELEASE_DIR/mips-x-${VERSION}.vsix"
-        echo "✓ VS Code extension packaged: $RELEASE_DIR/mips-x-${VERSION}.vsix"
-    else
-        echo "Warning: vsce not available, skipping extension packaging"
-    fi
+    npx @vscode/vsce package -o "$RELEASE_DIR/MIPSduino-${VERSION}.vsix"
+    echo "✓ VS Code extension packaged: $RELEASE_DIR/MIPSduino-${VERSION}.vsix"
     
     cd "$BUILD_DIR"
 else
@@ -98,7 +87,7 @@ echo ""
 echo "Step 6: Creating source archive..."
 echo "-----------------------------------"
 cd "$SCRIPT_DIR/.."
-SOURCE_ARCHIVE="$RELEASE_DIR/mipsx-${VERSION}-source.tar.gz"
+SOURCE_ARCHIVE="$RELEASE_DIR/MIPSduino-${VERSION}-source.tar.gz"
 tar -czf "$SOURCE_ARCHIVE" \
     --exclude='build/build' \
     --exclude='build/dist' \
@@ -116,6 +105,7 @@ echo ""
 echo "Step 7: Generating checksums..."
 echo "--------------------------------"
 cd "$RELEASE_DIR"
+rm -f SHA256SUMS.txt
 sha256sum * > SHA256SUMS.txt 2>/dev/null || true
 echo "✓ Checksums generated: $RELEASE_DIR/SHA256SUMS.txt"
 echo ""
@@ -129,11 +119,11 @@ echo ""
 ls -lh "$RELEASE_DIR"
 echo ""
 echo "Available packages:"
-echo "  - Linux (.deb): mipsx_${VERSION}_amd64.deb"
-echo "  - Linux (.rpm): mipsx-${VERSION}-1.x86_64.rpm"
-echo "  - Linux (binary): mipsx-${VERSION}-linux-x86_64.tar.gz"
-echo "  - VS Code Extension: mips-x-${VERSION}.vsix"
-echo "  - Source Code: mipsx-${VERSION}-source.tar.gz"
+echo "  - Linux (.deb): MIPSduino_${VERSION}_amd64.deb"
+echo "  - Linux (.rpm): MIPSduino-${VERSION}-1.x86_64.rpm"
+echo "  - Linux (binary): MIPSduino-${VERSION}-linux-x86_64.tar.gz"
+echo "  - VS Code Extension: MIPSduino-${VERSION}.vsix"
+echo "  - Source Code: MIPSduino-${VERSION}-source.tar.gz"
 echo ""
 echo "Note: Windows .exe must be built on Windows using build_windows.bat"
 echo "      macOS binary must be built on macOS using build_macos.sh"

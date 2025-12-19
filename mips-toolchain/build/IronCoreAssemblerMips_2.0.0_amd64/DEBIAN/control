@@ -1,0 +1,8 @@
+Package: IronCoreAssemblerMips
+Version: 2.0.0
+Section: devel
+Priority: optional
+Architecture: amd64
+Maintainer: IronCore Team <support@ironcore.org>
+Description: IronCoreAssemblerMips Assembler and Runtime
+ A modern toolchain for MIPS assembly, wrapping MARS.

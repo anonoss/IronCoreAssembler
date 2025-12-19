@@ -6,21 +6,21 @@ const fs = require('fs');
 let outputChannel;
 
 function activate(context) {
-    outputChannel = vscode.window.createOutputChannel("MIPS-X");
+    outputChannel = vscode.window.createOutputChannel("MIPSduino Assembler");
 
     // Register commands
     context.subscriptions.push(
-        vscode.commands.registerCommand('mips-x.run', runMipsFile),
-        vscode.commands.registerCommand('mips-x.build', buildMipsFile),
-        vscode.commands.registerCommand('mips-x.showSymbols', showSymbolTable)
+        vscode.commands.registerCommand('mipsduino.run', runMipsFile),
+        vscode.commands.registerCommand('mipsduino.build', buildMipsFile),
+        vscode.commands.registerCommand('mipsduino.showSymbols', showSymbolTable)
     );
 
-    outputChannel.appendLine('MIPS-X Extension Activated');
+    outputChannel.appendLine('MIPSduino Assembler Extension Activated');
 }
 
 function getExecutablePath() {
     // Check user configuration first
-    const config = vscode.workspace.getConfiguration('mipsx');
+    const config = vscode.workspace.getConfiguration('mipsduino');
     const userPath = config.get('executablePath');
 
     if (userPath && fs.existsSync(userPath)) {
@@ -32,14 +32,14 @@ function getExecutablePath() {
         vscode.workspace.workspaceFolders[0].uri.fsPath : null;
 
     if (workspaceFolder) {
-        const workspacePath = path.join(workspaceFolder, 'mips-toolchain', 'build', 'dist', 'mipsx');
+        const workspacePath = path.join(workspaceFolder, 'mips-toolchain', 'build', 'dist', 'MIPSduino');
         if (fs.existsSync(workspacePath)) {
             return workspacePath;
         }
     }
 
     // Try system PATH
-    const systemCmd = process.platform === 'win32' ? 'mipsx.exe' : 'mipsx';
+    const systemCmd = process.platform === 'win32' ? 'MIPSduino.exe' : 'MIPSduino';
     return systemCmd;
 }
 
@@ -60,7 +60,7 @@ function runMipsFile() {
 
     // Save the file first
     document.save().then(() => {
-        const config = vscode.workspace.getConfiguration('mipsx');
+        const config = vscode.workspace.getConfiguration('mipsduino');
 
         if (config.get('showOutputOnRun')) {
             outputChannel.show(true);
@@ -77,6 +77,22 @@ function runMipsFile() {
         const execPath = getExecutablePath();
         const workspaceFolder = vscode.workspace.workspaceFolders ?
             vscode.workspace.workspaceFolders[0].uri.fsPath : path.dirname(filePath);
+
+        // Verify executable exists or is in PATH
+        try {
+            if (execPath !== 'MIPSduino' && execPath !== 'MIPSduino.exe' && !fs.existsSync(execPath)) {
+                throw new Error('Executable not found');
+            }
+        } catch (e) {
+            const msg = "MIPSduino toolchain not found. Please install it to run MIPS code.";
+            const action = "Download Toolchain";
+            vscode.window.showErrorMessage(msg, action).then(selection => {
+                if (selection === action) {
+                    vscode.env.openExternal(vscode.Uri.parse('https://github.com/mipsduino/MIPSduino/releases'));
+                }
+            });
+            return;
+        }
 
         // Determine if we're using Python script or compiled executable
         const isPythonScript = execPath.endsWith('.py');
@@ -105,7 +121,11 @@ function runMipsFile() {
 
         child.on('error', (error) => {
             outputChannel.appendLine(`\nError: ${error.message}`);
-            vscode.window.showErrorMessage(`Failed to run MIPS-X: ${error.message}`);
+            if (error.code === 'ENOENT') {
+                vscode.window.showErrorMessage(`MIPSduino not found in system PATH. Please install the toolchain.`);
+            } else {
+                vscode.window.showErrorMessage(`Failed to run MIPSduino: ${error.message}`);
+            }
         });
 
         child.on('close', (code) => {
@@ -135,12 +155,28 @@ function buildMipsFile() {
     document.save().then(() => {
         outputChannel.show(true);
         outputChannel.clear();
-        outputChannel.appendLine(`Building: ${path.basename(filePath)}`);
+        outputChannel.appendLine(`Building for MicroCoreASM: ${path.basename(filePath)}`);
         outputChannel.appendLine(`Output: ${path.basename(outputPath)}\n`);
 
         const execPath = getExecutablePath();
         const workspaceFolder = vscode.workspace.workspaceFolders ?
             vscode.workspace.workspaceFolders[0].uri.fsPath : path.dirname(filePath);
+
+        // Verify executable exists or is in PATH
+        try {
+            if (execPath !== 'MIPSduino' && execPath !== 'MIPSduino.exe' && !fs.existsSync(execPath)) {
+                throw new Error('Executable not found');
+            }
+        } catch (e) {
+            const msg = "MIPSduino toolchain not found. Please install it to build MIPS code.";
+            const action = "Download Toolchain";
+            vscode.window.showErrorMessage(msg, action).then(selection => {
+                if (selection === action) {
+                    vscode.env.openExternal(vscode.Uri.parse('https://github.com/mipsduino/MIPSduino/releases'));
+                }
+            });
+            return;
+        }
 
         const isPythonScript = execPath.endsWith('.py');
         let cmd, args;
@@ -185,7 +221,6 @@ function buildMipsFile() {
 
 function showSymbolTable() {
     vscode.window.showInformationMessage('Symbol table feature coming soon!');
-    // This could be enhanced to parse MARS output and show symbols in a tree view
 }
 
 function deactivate() {

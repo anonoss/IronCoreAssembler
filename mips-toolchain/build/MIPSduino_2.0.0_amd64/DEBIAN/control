@@ -1,0 +1,8 @@
+Package: mipsduino
+Version: 2.0.0
+Section: devel
+Priority: optional
+Architecture: amd64
+Maintainer: MIPSduino Team <support@mipsduino.org>
+Description: MIPSduino Assembler (MicroCoreASM)
+ A modern toolchain for MIPS assembly, wrapping MARS with hardware integration.
