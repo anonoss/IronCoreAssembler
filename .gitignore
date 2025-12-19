@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# Build and Dist
+mips-toolchain/build/build/
+mips-toolchain/build/dist/
+mips-toolchain/build/*.deb
+mips-toolchain/build/*.rpm
+mips-toolchain/build/*.vsix
+mips-toolchain/build/*.tar.gz
+mips-toolchain/build/mipsx_*/
+
+# Releases
+mips-toolchain/releases/*.deb
+mips-toolchain/releases/*.rpm
+mips-toolchain/releases/*.vsix
+mips-toolchain/releases/*.tar.gz
+mips-toolchain/releases/SHA256SUMS.txt
+
+# VS Code
+.vscode/
+node_modules/
+**/node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db

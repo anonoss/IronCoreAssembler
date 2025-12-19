@@ -1,0 +1,166 @@
+{
+    "MIPS Main Template": {
+        "prefix": "main",
+        "body": [
+            ".data",
+            "${1:# Data section}",
+            "",
+            ".text",
+            ".globl main",
+            "main:",
+            "    ${2:# Your code here}",
+            "    ",
+            "    # Exit program",
+            "    li \\$v0, 10",
+            "    syscall"
+        ],
+        "description": "Basic MIPS program template with main"
+    },
+    "Print Integer": {
+        "prefix": "print_int",
+        "body": [
+            "li \\$v0, 1",
+            "la \\$a0, ${1:value}",
+            "syscall"
+        ],
+        "description": "Print integer syscall"
+    },
+    "Print String": {
+        "prefix": "print_str",
+        "body": [
+            "li \\$v0, 4",
+            "la \\$a0, ${1:string_label}",
+            "syscall"
+        ],
+        "description": "Print string syscall"
+    },
+    "Read Integer": {
+        "prefix": "read_int",
+        "body": [
+            "li \\$v0, 5",
+            "syscall",
+            "move ${1:\\$t0}, \\$v0  # Store result in ${1:\\$t0}"
+        ],
+        "description": "Read integer from user"
+    },
+    "Read String": {
+        "prefix": "read_str",
+        "body": [
+            "li \\$v0, 8",
+            "la \\$a0, ${1:buffer}",
+            "li \\$a1, ${2:length}",
+            "syscall"
+        ],
+        "description": "Read string from user"
+    },
+    "For Loop": {
+        "prefix": "for",
+        "body": [
+            "li ${1:\\$t0}, ${2:0}        # Initialize counter",
+            "${3:loop_start}:",
+            "    bge ${1:\\$t0}, ${4:10}, ${5:loop_end}  # Exit condition",
+            "    ",
+            "    ${6:# Loop body}",
+            "    ",
+            "    addi ${1:\\$t0}, ${1:\\$t0}, 1  # Increment",
+            "    j ${3:loop_start}",
+            "${5:loop_end}:"
+        ],
+        "description": "For loop structure"
+    },
+    "While Loop": {
+        "prefix": "while",
+        "body": [
+            "${1:while_start}:",
+            "    ${2:# Condition check}",
+            "    beq ${3:\\$t0}, ${4:\\$zero}, ${5:while_end}",
+            "    ",
+            "    ${6:# Loop body}",
+            "    ",
+            "    j ${1:while_start}",
+            "${5:while_end}:"
+        ],
+        "description": "While loop structure"
+    },
+    "If-Else": {
+        "prefix": "ifelse",
+        "body": [
+            "beq ${1:\\$t0}, ${2:\\$t1}, ${3:else_branch}",
+            "    ${4:# If body}",
+            "    j ${5:end_if}",
+            "${3:else_branch}:",
+            "    ${6:# Else body}",
+            "${5:end_if}:"
+        ],
+        "description": "If-else structure"
+    },
+    "Function Template": {
+        "prefix": "func",
+        "body": [
+            "${1:function_name}:",
+            "    # Save registers",
+            "    addi \\$sp, \\$sp, -8",
+            "    sw \\$ra, 4(\\$sp)",
+            "    sw \\$fp, 0(\\$sp)",
+            "    move \\$fp, \\$sp",
+            "    ",
+            "    ${2:# Function body}",
+            "    ",
+            "    # Restore registers",
+            "    lw \\$ra, 4(\\$sp)",
+            "    lw \\$fp, 0(\\$sp)",
+            "    addi \\$sp, \\$sp, 8",
+            "    jr \\$ra"
+        ],
+        "description": "Function template with stack frame"
+    },
+    "Allocate Heap": {
+        "prefix": "sbrk",
+        "body": [
+            "li \\$v0, 9",
+            "li \\$a0, ${1:bytes}",
+            "syscall",
+            "move ${2:\\$s0}, \\$v0  # Base address in ${2:\\$s0}"
+        ],
+        "description": "Allocate heap memory (sbrk)"
+    },
+    "Array Access": {
+        "prefix": "array",
+        "body": [
+            "# Access array[${1:i}]",
+            "sll ${2:\\$t0}, ${3:\\$t1}, 2  # Multiply index by 4",
+            "add ${2:\\$t0}, ${2:\\$t0}, ${4:\\$s0}  # Add base address",
+            "lw ${5:\\$t2}, 0(${2:\\$t0})  # Load value"
+        ],
+        "description": "Array element access pattern"
+    },
+    "Data String": {
+        "prefix": "str",
+        "body": [
+            "${1:label}: .asciiz \"${2:text}\""
+        ],
+        "description": "Define a string in data section"
+    },
+    "Data Word": {
+        "prefix": "word",
+        "body": [
+            "${1:label}: .word ${2:value}"
+        ],
+        "description": "Define a word in data section"
+    },
+    "Data Array": {
+        "prefix": "array_data",
+        "body": [
+            "${1:label}: .word ${2:val1}, ${3:val2}, ${4:val3}  # Array of ${5:size} elements"
+        ],
+        "description": "Define an array in data section"
+    },
+    "Exit Program": {
+        "prefix": "exit",
+        "body": [
+            "li \\$v0, 10",
+            "syscall"
+        ],
+        "description": "Exit program syscall"
+    }
+}

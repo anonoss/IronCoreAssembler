@@ -1,0 +1,140 @@
+{
+  "name": "mips-x",
+  "displayName": "MIPS-X Assembler",
+  "description": "Complete MIPS Assembly development environment with syntax highlighting, IntelliSense, and integrated runner",
+  "version": "2.0.0",
+  "publisher": "mipsx-team",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mipsx/vscode-extension"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Debuggers",
+    "Snippets"
+  ],
+  "keywords": [
+    "mips",
+    "assembly",
+    "assembler",
+    "mars",
+    "computer architecture"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "mips",
+        "aliases": [
+          "MIPS Assembly",
+          "mips",
+          "MIPS"
+        ],
+        "extensions": [
+          ".asm",
+          ".s",
+          ".mips"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "mips",
+        "scopeName": "source.mips",
+        "path": "./syntaxes/mips.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "mips-x.run",
+        "title": "MIPS-X: Run Current File",
+        "icon": "$(play)"
+      },
+      {
+        "command": "mips-x.build",
+        "title": "MIPS-X: Build (Assemble Only)",
+        "icon": "$(tools)"
+      },
+      {
+        "command": "mips-x.showSymbols",
+        "title": "MIPS-X: Show Symbol Table"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "mips-x.run",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r",
+        "when": "editorLangId == mips"
+      },
+      {
+        "command": "mips-x.build",
+        "key": "ctrl+shift+b",
+        "mac": "cmd+shift+b",
+        "when": "editorLangId == mips"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "resourceLangId == mips",
+          "command": "mips-x.run",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == mips",
+          "command": "mips-x.build",
+          "group": "navigation"
+        }
+      ],
+      "editor/title": [
+        {
+          "when": "resourceLangId == mips",
+          "command": "mips-x.run",
+          "group": "navigation"
+        }
+      ]
+    },
+    "snippets": [
+      {
+        "language": "mips",
+        "path": "./snippets/mips.json"
+      }
+    ],
+    "configuration": {
+      "title": "MIPS-X",
+      "properties": {
+        "mipsx.executablePath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to mipsx executable. Leave empty to auto-detect."
+        },
+        "mipsx.showOutputOnRun": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically show output panel when running code"
+        },
+        "mipsx.clearOutputBeforeRun": {
+          "type": "boolean",
+          "default": true,
+          "description": "Clear output panel before each run"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.75.0",
+    "vsce": "^2.15.0"
+  }
+}

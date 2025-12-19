@@ -1,0 +1,161 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "MIPS Assembly",
+    "scopeName": "source.mips",
+    "patterns": [
+        {
+            "include": "#comments"
+        },
+        {
+            "include": "#directives"
+        },
+        {
+            "include": "#labels"
+        },
+        {
+            "include": "#instructions"
+        },
+        {
+            "include": "#registers"
+        },
+        {
+            "include": "#numbers"
+        },
+        {
+            "include": "#strings"
+        }
+    ],
+    "repository": {
+        "comments": {
+            "patterns": [
+                {
+                    "name": "comment.line.number-sign.mips",
+                    "match": "#.*$"
+                },
+                {
+                    "name": "comment.block.mips",
+                    "begin": "/\\*",
+                    "end": "\\*/"
+                }
+            ]
+        },
+        "directives": {
+            "patterns": [
+                {
+                    "name": "keyword.control.directive.mips",
+                    "match": "\\.(data|text|globl|word|byte|half|space|asciiz|ascii|align|kdata|ktext|extern|set|macro|end_macro)\\b"
+                }
+            ]
+        },
+        "labels": {
+            "patterns": [
+                {
+                    "name": "entity.name.function.mips",
+                    "match": "^\\s*[a-zA-Z_][a-zA-Z0-9_]*:"
+                }
+            ]
+        },
+        "instructions": {
+            "patterns": [
+                {
+                    "name": "keyword.mnemonic.arithmetic.mips",
+                    "match": "\\b(add|addi|addiu|addu|sub|subu|mul|mult|multu|div|divu|rem|abs|neg)\\b"
+                },
+                {
+                    "name": "keyword.mnemonic.logical.mips",
+                    "match": "\\b(and|andi|or|ori|xor|xori|nor|not|sll|sllv|srl|srlv|sra|srav|rol|ror)\\b"
+                },
+                {
+                    "name": "keyword.mnemonic.comparison.mips",
+                    "match": "\\b(slt|slti|sltiu|sltu|seq|sne|sge|sgeu|sgt|sgtu|sle|sleu)\\b"
+                },
+                {
+                    "name": "keyword.mnemonic.branch.mips",
+                    "match": "\\b(beq|bne|blt|ble|bgt|bge|bltz|blez|bgtz|bgez|beqz|bnez)\\b"
+                },
+                {
+                    "name": "keyword.mnemonic.jump.mips",
+                    "match": "\\b(j|jal|jr|jalr)\\b"
+                },
+                {
+                    "name": "keyword.mnemonic.load.mips",
+                    "match": "\\b(la|lb|lbu|lh|lhu|lw|lwl|lwr|lui|li|ld)\\b"
+                },
+                {
+                    "name": "keyword.mnemonic.store.mips",
+                    "match": "\\b(sb|sh|sw|swl|swr|sd)\\b"
+                },
+                {
+                    "name": "keyword.mnemonic.move.mips",
+                    "match": "\\b(move|mfhi|mflo|mthi|mtlo|mfc0|mtc0)\\b"
+                },
+                {
+                    "name": "keyword.mnemonic.system.mips",
+                    "match": "\\b(syscall|break|nop|eret)\\b"
+                }
+            ]
+        },
+        "registers": {
+            "patterns": [
+                {
+                    "name": "variable.language.register.mips",
+                    "match": "\\$(zero|at|v[0-1]|a[0-3]|t[0-9]|s[0-7]|k[0-1]|gp|sp|fp|ra)\\b"
+                },
+                {
+                    "name": "variable.language.register.numeric.mips",
+                    "match": "\\$([0-9]|[12][0-9]|3[01])\\b"
+                },
+                {
+                    "name": "variable.language.register.float.mips",
+                    "match": "\\$f([0-9]|[12][0-9]|3[01])\\b"
+                }
+            ]
+        },
+        "numbers": {
+            "patterns": [
+                {
+                    "name": "constant.numeric.hex.mips",
+                    "match": "\\b0[xX][0-9a-fA-F]+\\b"
+                },
+                {
+                    "name": "constant.numeric.binary.mips",
+                    "match": "\\b0[bB][01]+\\b"
+                },
+                {
+                    "name": "constant.numeric.decimal.mips",
+                    "match": "\\b[0-9]+\\b"
+                },
+                {
+                    "name": "constant.numeric.negative.mips",
+                    "match": "-[0-9]+\\b"
+                }
+            ]
+        },
+        "strings": {
+            "patterns": [
+                {
+                    "name": "string.quoted.double.mips",
+                    "begin": "\"",
+                    "end": "\"",
+                    "patterns": [
+                        {
+                            "name": "constant.character.escape.mips",
+                            "match": "\\\\(n|t|r|\\\\|\"|'|0)"
+                        }
+                    ]
+                },
+                {
+                    "name": "string.quoted.single.mips",
+                    "begin": "'",
+                    "end": "'",
+                    "patterns": [
+                        {
+                            "name": "constant.character.escape.mips",
+                            "match": "\\\\(n|t|r|\\\\|\"|'|0)"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
