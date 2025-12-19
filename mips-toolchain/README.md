@@ -13,7 +13,7 @@ A modern, cross-platform toolchain for MIPS Assembly development, powered by MAR
 | Platform | File | Description |
 |----------|------|-------------|
 | **Linux (Debian/Ubuntu)** | [**mipsx_2.0.0_amd64.deb**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/mipsx_2.0.0_amd64.deb) | `.deb` installer |
-| **Windows** | [**mipsx.exe**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/mipsx.exe) | Executable file |
+| **Windows** | [**mips.exe**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/mips.exe) | Executable file |
 | **VS Code** | [**mips-x-2.0.0.vsix**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/mips-x-2.0.0.vsix) | Extension |
 
 > **Note:** Java Runtime Environment (JRE) 8 or higher is required.
@@ -45,7 +45,7 @@ sudo dpkg -i mipsx_2.0.0_amd64.deb
 ```
 
 ### Windows
-1. Download `mipsx.exe`.
+1. Download `mips.exe`.
 2. Add it to your PATH.
 
 ### VS Code Extension
