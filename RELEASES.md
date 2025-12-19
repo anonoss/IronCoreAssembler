@@ -24,7 +24,7 @@ This release marks a significant milestone for the IronCoreAssembler project, tr
 - 🐧 **Linux (.deb)**: [**mipsx_2.0.0_amd64.deb**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/mipsx_2.0.0_amd64.deb)
 - 📦 **Linux (.rpm)**: [**mipsx-2.0.0-1.x86_64.rpm**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/mipsx-2.0.0-1.x86_64.rpm)
 - 📂 **Linux (Standalone)**: [**mipsx-2.0.0-linux-x86_64.tar.gz**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/mipsx-2.0.0-linux-x86_64.tar.gz)
-- 🪟 **Windows (.exe)**: [**mips.exe**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/mips.exe)
+- 🪟 **Windows (.exe)**: [**mipsx.exe**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/mipsx.exe)
 - 📝 **VS Code Extension**: [**mips-x-2.0.0.vsix**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/mips-x-2.0.0.vsix)
 
 > **Note**: These links will become active once you create the `v2.0.0` release on GitHub and upload the files from the `mips-toolchain/releases` folder.

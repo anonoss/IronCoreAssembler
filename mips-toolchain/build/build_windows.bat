@@ -23,17 +23,17 @@ cd /d "%~dp0"
 
 REM Build the executable
 echo Creating Windows executable...
-pyinstaller --onefile --name mips --add-data "../../Mars.jar;." --icon=NONE ../cli/mipsx.py
+pyinstaller --onefile --name mipsx --add-data "../../Mars.jar;." --icon=NONE ../cli/mipsx.py
 
-if exist "dist\mips.exe" (
+if exist "dist\mipsx.exe" (
     echo.
     echo ========================================
     echo Build successful!
-    echo Executable location: dist\mips.exe
+    echo Executable location: dist\mipsx.exe
     echo ========================================
     echo.
     echo To install system-wide, copy mipsx.exe to a directory in your PATH
-    echo Example: copy dist\mips.exe C:\Windows\System32\
+    echo Example: copy dist\mipsx.exe C:\Windows\System32\
 ) else (
     echo Build failed!
     exit /b 1

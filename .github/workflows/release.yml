@@ -26,7 +26,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: mipsx-windows
-          path: mips-toolchain/build/dist/mips.exe
+          path: mips-toolchain/build/dist/mipsx.exe
 
   build-linux:
     runs-on: ubuntu-latest
