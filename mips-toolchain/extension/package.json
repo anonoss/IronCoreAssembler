@@ -35,9 +35,7 @@
     "computer architecture",
     "instruction set"
   ],
-  "activationEvents": [
-    "onLanguage:mips"
-  ],
+  "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
     "languages": [
@@ -65,6 +63,11 @@
     ],
     "commands": [
       {
+        "command": "mipsduino.mainMenu",
+        "title": "MIPSduino: Action Menu",
+        "icon": "$(rocket)"
+      },
+      {
         "command": "mipsduino.run",
         "title": "MIPSduino: Run Current File",
         "icon": "$(play)"
@@ -75,8 +78,29 @@
         "icon": "$(tools)"
       },
       {
+        "command": "mipsduino.upload",
+        "title": "MIPSduino: Upload to Hardware",
+        "icon": "$(arrow-up)"
+      },
+      {
         "command": "mipsduino.showSymbols",
-        "title": "MIPSduino: Show Symbol Table"
+        "title": "MIPSduino: Show Symbol Table",
+        "icon": "$(list-unordered)"
+      },
+      {
+        "command": "mipsduino.showMemory",
+        "title": "MIPSduino: Show Memory Map",
+        "icon": "$(database)"
+      },
+      {
+        "command": "mipsduino.showRegisters",
+        "title": "MIPSduino: Show Register States",
+        "icon": "$(circuit-board)"
+      },
+      {
+        "command": "mipsduino.openMars",
+        "title": "MIPSduino: Open MARS GUI",
+        "icon": "$(window)"
       }
     ],
     "keybindings": [
@@ -91,6 +115,30 @@
         "key": "ctrl+shift+b",
         "mac": "cmd+shift+b",
         "when": "editorLangId == mips"
+      },
+      {
+        "command": "mipsduino.upload",
+        "key": "ctrl+shift+u",
+        "mac": "cmd+shift+u",
+        "when": "editorLangId == mips"
+      },
+      {
+        "command": "mipsduino.showSymbols",
+        "key": "ctrl+shift+s",
+        "mac": "cmd+shift+s",
+        "when": "editorLangId == mips"
+      },
+      {
+        "command": "mipsduino.showMemory",
+        "key": "ctrl+shift+m",
+        "mac": "cmd+shift+m",
+        "when": "editorLangId == mips"
+      },
+      {
+        "command": "mipsduino.showRegisters",
+        "key": "ctrl+shift+g",
+        "mac": "cmd+shift+g",
+        "when": "editorLangId == mips"
       }
     ],
     "menus": {
@@ -104,12 +152,37 @@
           "when": "resourceLangId == mips",
           "command": "mipsduino.build",
           "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == mips",
+          "command": "mipsduino.upload",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == mips",
+          "command": "mipsduino.showSymbols",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == mips",
+          "command": "mipsduino.showMemory",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == mips",
+          "command": "mipsduino.showRegisters",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == mips",
+          "command": "mipsduino.openMars",
+          "group": "navigation"
         }
       ],
       "editor/title": [
         {
           "when": "resourceLangId == mips",
-          "command": "mipsduino.run",
+          "command": "mipsduino.mainMenu",
           "group": "navigation"
         }
       ]
@@ -137,6 +210,16 @@
           "type": "boolean",
           "default": true,
           "description": "Clear output panel before each run"
+        },
+        "mipsduino.hardwarePort": {
+          "type": "string",
+          "default": "COM3",
+          "description": "Serial port for hardware upload (e.g., COM3 on Windows, /dev/ttyUSB0 on Linux)"
+        },
+        "mipsduino.baudRate": {
+          "type": "number",
+          "default": 9600,
+          "description": "Baud rate for hardware communication"
         }
       }
     }

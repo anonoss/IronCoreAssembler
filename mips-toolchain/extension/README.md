@@ -1,67 +1,61 @@
-# MIPSduino: MIPS Assembly & Assembler for VS Code
+# MIPSduino: The Ultimate MIPS Assembly & Microprocessor Suite
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/anonoss/IronCoreAssembler/main/mips-toolchain/extension/images/icon.png" width="128" alt="MIPSduino Logo">
-</p>
 
-## 🚀 Overview
-**MIPSduino** is the ultimate **MIPS Assembly Extension Pack** for Visual Studio Code. It bundles everything you need for MIPS development:
-- **MIPSduino Assembler**: Core logic for assembly and hardware integration.
-- **C/C++ Support**: For Arduino and ESP32 header integration.
-- **Hex Editor**: To inspect generated `.bin` and `.hex` files.
-
-It features a powerful **MIPS Assembler**, integrated **MARS Simulator** backend, and native support for the **MicroCoreASM** hardware architecture. Created and maintained by **Anon Open Source**, this extension is perfect for students learning **Computer Architecture** and professionals building embedded systems.
+**MIPSduino** is a professional-grade, high-performance development environment for MIPS Assembly. Designed for engineers, students, and hardware enthusiasts, it bridges the gap between software simulation and physical microprocessor integration.
 
 ---
 
-## ✨ Key Features
+## 🌟 Professional Overview
 
-### 🛠️ Hardware-Ready Toolchain
-- **MicroCoreASM Integration**: Native support for exporting raw binary (`.bin`) files ready for hardware loading.
-- **Arduino & ESP32 Support**: One-click export of C/C++ header files (`.h`) containing instruction arrays for embedded projects.
-- **Multi-Format Export**: Generate Hex, Binary, and Header files simultaneously.
+MIPSduino transforms VS Code into a powerful workstation for computer architecture and embedded systems. Whether you are learning the basics of MIPS or deploying complex instructions to a custom microprocessor, MIPSduino provides the tools you need in a sleek, unified interface.
 
-### 💻 Professional Development Experience
-- **Syntax Highlighting**: Full support for standard MIPS instructions, directives, and registers.
-- **Intelligent Snippets**: 15+ built-in templates for common patterns like loops, function calls, and system calls.
-- **Symbol Analysis**: Integrated command to view symbol tables and memory address mapping (Data & Text segments).
+### 🚀 Core Capabilities
 
-### ⚡ One-Click Workflow
-- **Run (Ctrl+Shift+R)**: Execute your MIPS code instantly using the integrated MARS backend.
-- **Build (Ctrl+Shift+B)**: Assemble and generate hardware-ready files in seconds.
-- **Interactive Output**: Clean, colorized terminal output with professional status indicators.
+- **Unified Action Menu**: Access every tool—Run, Build, Upload, Memory Map, and Registers—from a single, intuitive rocket-icon menu.
+- **MicroCoreASM Integration**: Native support for the MicroCoreASM hardware architecture, ensuring your code is ready for real-world execution.
+- **Advanced Memory Inspection**: Deep-dive into Text and Data segments with high-fidelity hex dumps and address mapping.
+- **Hardware-Ready CLI**: A robust command-line interface powered by Python, featuring clean, colorized output and zero shell noise.
+- **MARS 5 Power**: Leverages the industry-standard MARS simulator for reliable execution and debugging.
 
 ---
 
-## 📦 Installation
+## ⌨️ Power-User Shortcuts
 
-### 1. Install the Extension
-Install this extension from the VS Code Marketplace.
+Master your workflow with these optimized keybindings:
 
-### 2. Install the MIPSduino Toolchain (Required)
-For the extension to function, you must have the core toolchain installed on your system:
-- **Linux**: Download and install the `.deb` package from our [Releases](https://github.com/anonoss/IronCoreAssembler/releases).
-- **Windows**: Download `MIPSduino.exe` and add it to your system PATH.
-
----
-
-## ⌨️ Keyboard Shortcuts
-| Action | Shortcut |
-|--------|----------|
-| **Run MIPS Code** | `Ctrl + Shift + R` |
-| **Build for Hardware** | `Ctrl + Shift + B` |
+| Feature | Shortcut | Description |
+|:---|:---|:---|
+| **Run Code** | `Ctrl + Shift + R` | Execute MIPS code in the professional terminal. |
+| **Action Menu** | `🚀 Icon` | Open the overlay menu for all advanced actions. |
+| **Build Binary** | `Ctrl + Shift + B` | Generate hardware-ready `.hex` and `.bin` files. |
+| **Upload** | `Ctrl + Shift + U` | Deploy code directly to your microprocessor. |
+| **Symbol Table** | `Ctrl + Shift + S` | View memory addresses for all labels and functions. |
+| **Memory Map** | `Ctrl + Shift + M` | Inspect the full memory state of your program. |
+| **Registers** | `Ctrl + Shift + G` | View the final state of all 32 MIPS registers. |
 
 ---
 
-## 🤝 Community & Support
-Created with ❤️ by **Anon Open Source**.
+## 🛠️ Hardware Setup
 
-- **Repository**: [GitHub - AnonOSS/IronCoreAssembler](https://github.com/anonoss/IronCoreAssembler)
-- **Issues**: [Report a Bug](https://github.com/anonoss/IronCoreAssembler/issues)
-- **License**: MIT
+MIPSduino is built for hardware. Configure your connection in seconds:
+
+1. Open **VS Code Settings** (`Ctrl + ,`).
+2. Search for **MIPSduino**.
+3. Configure your **Hardware Port** (e.g., `COM3` or `/dev/ttyUSB0`) and **Baud Rate**.
+4. Click **Upload** to see your code come to life on real silicon.
 
 ---
-<p align="center">
-  <b>MIPSduino Toolchain | IronCore Assembler v2.0</b><br>
-  <i>Empowering MIPS development for everyone.</i>
-</p>
+
+## 📦 Extension Pack
+
+MIPSduino includes essential tools for a complete development experience:
+- **C/C++ Tools**: For advanced cross-compilation.
+- **Hex Editor**: For low-level binary inspection.
+
+---
+
+## 📜 License & Community
+
+MIPSduino is open-source and licensed under the **MIT License**. Join our community on [GitHub](https://github.com/anonoss/IronCoreAssembler) to contribute or report issues.
+
+**Designed for Performance. Built for Hardware.**

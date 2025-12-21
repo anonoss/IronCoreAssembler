@@ -26,12 +26,12 @@ A modern, high-performance MIPS Assembly development environment featuring the *
 
 **Linux (Debian/Ubuntu):**
 ```bash
-sudo dpkg -i mips-toolchain/releases/MIPSduino_2.0.0_amd64.deb
+sudo dpkg -i MIPSduino_2.0.0_amd64.deb
 ```
 
 **VS Code Extension:**
 ```bash
-code --install-extension mips-toolchain/releases/MIPSduino-2.0.0.vsix
+code --install-extension MIPSduino-2.0.0.vsix
 ```
 
 ### Usage

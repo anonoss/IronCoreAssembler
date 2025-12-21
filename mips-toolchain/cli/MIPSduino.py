@@ -17,29 +17,32 @@ class Colors:
     BOLD = '\033[1m'
 
 def print_banner():
-    banner = rf"""
-{Colors.CYAN}{Colors.BOLD}    ___                      ______                
+    banner = rf"""{Colors.CYAN}{Colors.BOLD}    ___                      ______                
    /  _/________  ____      / ____/___  ________  
    / / / ___/ __ \/ __ \    / /   / __ \/ ___/ _ \ 
  _/ / / /  / /_/ / / / /   / /___/ /_/ / /  /  __/ 
-/___/_/   \____/_/ /_/____ \____/\\____/_/   \\___/  
-                    /_____/                        
+/___//_/   \____/_/ /_/    \____/\\____/_/  \\___/  
+                                                    
 {Colors.ENDC}{Colors.BLUE}    MIPSduino Assembler v2.0{Colors.ENDC}
-    {Colors.CYAN}Powered by MicroCoreASM Hardware Integration{Colors.ENDC}
-    """
+    {Colors.CYAN}Powered by MicroCoreASM Hardware Integration{Colors.ENDC}"""
     print(banner)
-
+    sys.stdout.flush()
+ 
 def print_success(msg):
     print(f"{Colors.GREEN}✔ {msg}{Colors.ENDC}")
+    sys.stdout.flush()
 
 def print_error(msg):
     print(f"{Colors.RED}✘ Error: {msg}{Colors.ENDC}", file=sys.stderr)
+    sys.stderr.flush()
 
 def print_info(msg):
     print(f"{Colors.BLUE}ℹ {msg}{Colors.ENDC}")
+    sys.stdout.flush()
 
 def print_warning(msg):
     print(f"{Colors.YELLOW}⚠ {msg}{Colors.ENDC}")
+    sys.stdout.flush()
 
 # --- Configuration ---
 def get_mars_jar_path():
@@ -214,20 +217,53 @@ def cmd_run(args):
 
     cmd = ["java", "-jar", MARS_JAR_PATH, "nc"]
     if args.no_gui:
-        # For CLI run, we might want to just execute
-        # MARS CLI execution is a bit limited in terms of interactivity
-        # but we can pass arguments.
-        pass
-    else:
-        cmd = ["java", "-jar", MARS_JAR_PATH]
-    
+        print()
+        print_info("Launching CLI...")
     cmd.append(args.file)
-    
-    print_info(f"Launching {'CLI' if args.no_gui else 'GUI'}...")
     try:
         subprocess.run(cmd)
     except KeyboardInterrupt:
         print("\nInterrupted by user.")
+
+def cmd_upload(args):
+    try:
+        import serial
+    except ImportError:
+        print_error("pyserial not found. Please install it with: pip install pyserial")
+        return
+
+    print_banner()
+    print_info(f"Uploading {os.path.basename(args.file)} to {args.port} at {args.baud} baud...")
+    
+    # In a real scenario, we would first build the file to get the binary
+    # For now, let's assume we upload the .bin file if it exists, or build it first.
+    bin_path = args.file.replace('.asm', '.bin')
+    if not os.path.exists(bin_path):
+        print_info("Binary not found, building first...")
+        # Call build logic directly
+        class DummyArgs:
+            def __init__(self, file):
+                self.file = file
+                self.output = None
+                self.format = 'bin'
+        cmd_build(DummyArgs(args.file))
+
+    if not os.path.exists(bin_path):
+        print_error("Failed to generate binary for upload.")
+        return
+
+    try:
+        with open(bin_path, 'rb') as f:
+            data = f.read()
+        
+        # Serial upload logic
+        ser = serial.Serial(args.port, args.baud, timeout=1)
+        ser.write(data)
+        ser.close()
+        
+        print_success("Upload complete!")
+    except Exception as e:
+        print_error(f"Upload failed: {str(e)}")
 
 def cmd_symbols(args):
     symbols = get_symbol_table(args.file)
@@ -251,6 +287,81 @@ def cmd_symbols(args):
     for s in symbols['text']:
         print(f"{s['label']:<20} 0x{s['address']:08x}   {s['line']}")
     if not symbols['text']: print("  (None)")
+    print()
+
+def cmd_memory(args):
+    if not check_java(): return
+    if not os.environ.get("MIPSX_NO_BANNER"):
+        print_banner()
+    print_info(f"Dumping memory for {os.path.basename(args.file)}...")
+    
+    # Use MARS to dump memory
+    # .text segment starts at 0x00400000
+    # .data segment starts at 0x10010000
+    temp_text_file = "temp_text_dump.txt"
+    temp_data_file = "temp_data_dump.txt"
+
+    # Dump .text segment
+    cmd_text = ["java", "-jar", MARS_JAR_PATH, "nc", "a", "dump", ".text", "HexText", temp_text_file, args.file]
+    subprocess.run(cmd_text, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    
+    if os.path.exists(temp_text_file):
+        print(f"\n{Colors.CYAN}Memory Map (Text Segment):{Colors.ENDC}")
+        print(f"{'Address':<12} {'Instruction (Hex)':<20}")
+        print("-" * 35)
+        with open(temp_text_file, "r") as f:
+            addr = 0x00400000
+            for line in f:
+                print(f"0x{addr:08x}   {line.strip()}")
+                addr += 4
+        os.remove(temp_text_file)
+    else:
+        print_error("Failed to dump text segment memory. Ensure the code is valid.")
+
+    # Dump .data segment
+    cmd_data = ["java", "-jar", MARS_JAR_PATH, "nc", "a", "dump", ".data", "HexText", temp_data_file, args.file]
+    subprocess.run(cmd_data, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    if os.path.exists(temp_data_file):
+        print(f"\n{Colors.CYAN}Memory Map (Data Segment):{Colors.ENDC}")
+        print(f"{'Address':<12} {'Value (Hex)':<20}")
+        print("-" * 35)
+        with open(temp_data_file, "r") as f:
+            addr = 0x10010000
+            for line in f:
+                print(f"0x{addr:08x}   {line.strip()}")
+                addr += 4 # Assuming .word data
+        os.remove(temp_data_file)
+    else:
+        print_info("No data segment memory dumped or data segment is empty.")
+
+
+def cmd_registers(args):
+    if not check_java(): return
+    if not os.environ.get("MIPSX_NO_BANNER"):
+        print_banner()
+    print_info(f"Dumping registers for {os.path.basename(args.file)}...")
+    
+    temp_reg_file = "temp_reg_dump.txt"
+    # Run MARS to assemble, execute, and then dump registers
+    # The 'a' command assembles and runs. Then 'dump .reg' dumps all registers.
+    cmd = ["java", "-jar", MARS_JAR_PATH, "nc", "a", args.file, "dump", ".reg", "HexText", temp_reg_file]
+    subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    if os.path.exists(temp_reg_file):
+        print(f"\n{Colors.CYAN}Register States (after execution):{Colors.ENDC}")
+        print(f"{'Register':<10} {'Value (Hex)':<12}")
+        print("-" * 25)
+        with open(temp_reg_file, "r") as f:
+            for line in f:
+                parts = line.strip().split()
+                if len(parts) == 2:
+                    reg_name = parts[0]
+                    reg_value = parts[1]
+                    print(f"{reg_name:<10} {reg_value:<12}")
+        os.remove(temp_reg_file)
+    else:
+        print_error("Failed to dump registers. Ensure the code is valid.")
     print()
 
 def cmd_interactive():
@@ -294,7 +405,6 @@ def cmd_interactive():
             print_warning("Invalid choice. Please try again.")
 
 def main():
-    print_banner()
     parser = argparse.ArgumentParser(description="MIPSduino Assembler - MicroCoreASM Toolchain")
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
@@ -314,6 +424,20 @@ def main():
     sym_p = subparsers.add_parser("symbols", help="Show symbol table and addresses")
     sym_p.add_argument("file", help="Input .asm file")
 
+    # Memory
+    mem_p = subparsers.add_parser("memory", help="Dump memory map")
+    mem_p.add_argument("file", help="Input .asm file")
+
+    # Registers
+    reg_p = subparsers.add_parser("registers", help="Dump register states")
+    reg_p.add_argument("file", help="Input .asm file")
+
+    # Upload
+    upload_p = subparsers.add_parser("upload", help="Upload binary to hardware")
+    upload_p.add_argument("file", help="Input .asm file")
+    upload_p.add_argument("--port", default="COM3", help="Serial port")
+    upload_p.add_argument("--baud", type=int, default=9600, help="Baud rate")
+
     # GUI
     gui_p = subparsers.add_parser("gui", help="Open MARS GUI")
     gui_p.add_argument("file", nargs='?', help="Optional .asm file to open")
@@ -327,12 +451,22 @@ def main():
 
     args = parser.parse_args()
 
+    if not os.environ.get("MIPSX_NO_BANNER"):
+        print_banner()
+
     if args.command == "build":
         cmd_build(args)
     elif args.command == "run":
         cmd_run(args)
     elif args.command == "symbols":
+        print_banner()
         cmd_symbols(args)
+    elif args.command == "memory":
+        cmd_memory(args)
+    elif args.command == "registers":
+        cmd_registers(args)
+    elif args.command == "upload":
+        cmd_upload(args)
     elif args.command == "gui":
         args.no_gui = False
         cmd_run(args)
