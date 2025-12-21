@@ -21,20 +21,20 @@ This release marks a significant milestone for the project, transforming it into
 ### 📦 Downloads & Links
 
 #### 📥 Direct Downloads
-- 🐧 **Linux (.deb)**: [**MIPSduino_2.0.0_amd64.deb**](https://github.com/mipsduino/MIPSduino/releases/download/v2.0.0/MIPSduino_2.0.0_amd64.deb)
-- 📦 **Linux (.rpm)**: [**MIPSduino-2.0.0-1.x86_64.rpm**](https://github.com/mipsduino/MIPSduino/releases/download/v2.0.0/MIPSduino-2.0.0-1.x86_64.rpm)
-- 📂 **Linux (Standalone)**: [**MIPSduino-2.0.0-linux-x86_64.tar.gz**](https://github.com/mipsduino/MIPSduino/releases/download/v2.0.0/MIPSduino-2.0.0-linux-x86_64.tar.gz)
-- 🪟 **Windows (Installer)**: [**MIPSduino_Setup.exe**](https://github.com/mipsduino/MIPSduino/releases/download/v2.0.0/MIPSduino_Setup.exe)
-- 🪟 **Windows (Standalone)**: [**MIPSduino.exe**](https://github.com/mipsduino/MIPSduino/releases/download/v2.0.0/MIPSduino.exe)
-- 📝 **VS Code Extension**: [**MIPSduino-2.0.0.vsix**](https://github.com/mipsduino/MIPSduino/releases/download/v2.0.0/MIPSduino-2.0.0.vsix)
+- 🐧 **Linux (.deb)**: [**MIPSduino_2.0.0_amd64.deb**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/MIPSduino_2.0.0_amd64.deb)
+- 📦 **Linux (.rpm)**: [**MIPSduino-2.0.0-1.x86_64.rpm**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/MIPSduino-2.0.0-1.x86_64.rpm)
+- 📂 **Linux (Standalone)**: [**MIPSduino-2.0.0-linux-x86_64.tar.gz**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/MIPSduino-2.0.0-linux-x86_64.tar.gz)
+- 🪟 **Windows (Installer)**: [**MIPSduino_Setup.exe**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/MIPSduino_Setup.exe)
+- 🪟 **Windows (Standalone)**: [**MIPSduino.exe**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/MIPSduino.exe)
+- 📝 **VS Code Extension**: [**MIPSduino-2.0.0.vsix**](https://github.com/anonoss/IronCoreAssembler/releases/download/v2.0.0/MIPSduino-2.0.0.vsix)
 
 > **Note**: These links will become active once you create the `v2.0.0` release on GitHub and upload the files from the `mips-toolchain/releases` folder.
 > **Windows Users**: We recommend using the **MIPSduino_Setup.exe** installer. It automatically sets up the system PATH so you can run `MIPSduino` from any terminal.
 
 #### 📖 Documentation & Setup
-- 🛠️ **[How to Setup (README)](https://github.com/mipsduino/MIPSduino#quick-start)**
-- 📟 **[MicroCoreASM Integration Guide](https://github.com/mipsduino/MIPSduino#-using-with-microprocessors)**
-- ♾️ **[Arduino Usage Guide](https://github.com/mipsduino/MIPSduino#-using-with-arduino)**
+- 🛠️ **[How to Setup (README)](https://github.com/anonoss/IronCoreAssembler#quick-start)**
+- 📟 **[MicroCoreASM Integration Guide](https://github.com/anonoss/IronCoreAssembler#-using-with-microprocessors)**
+- ♾️ **[Arduino Usage Guide](https://github.com/anonoss/IronCoreAssembler#-using-with-arduino)**
 
 ---
 
@@ -48,4 +48,4 @@ This release marks a significant milestone for the project, transforming it into
 
 **Version**: 2.0.0  
 **Last Updated**: December 19, 2025  
-**Copyright**: MIPSduino Team & Anon Open Source
+**Copyright**: Anon Open Source

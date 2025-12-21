@@ -1,13 +1,14 @@
 {
   "name": "mipsduino-assembler",
-  "displayName": "MIPSduino Assembler",
-  "description": "Complete MIPS Assembly development environment with MicroCoreASM hardware integration",
+  "displayName": "MIPSduino: MIPS Assembly & Assembler",
+  "description": "Professional MIPS Assembly development environment with MARS simulator, MicroCoreASM hardware integration, and Arduino support.",
   "version": "2.0.0",
-  "publisher": "mipsduino",
+  "publisher": "AnonOSS",
+  "license": "MIT",
   "icon": "images/icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mipsduino/MIPSduino"
+    "url": "https://github.com/anonoss/IronCoreAssembler"
   },
   "engines": {
     "vscode": "^1.75.0"
@@ -15,18 +16,27 @@
   "categories": [
     "Programming Languages",
     "Debuggers",
-    "Snippets"
+    "Snippets",
+    "Education"
+  ],
+  "extensionPack": [
+    "ms-vscode.cpptools",
+    "ms-vscode.hexeditor"
   ],
   "keywords": [
     "mips",
     "assembly",
     "assembler",
+    "mars",
+    "simulator",
     "arduino",
     "microprocessor",
-    "MicroCoreASM"
+    "MicroCoreASM",
+    "computer architecture",
+    "instruction set"
   ],
   "activationEvents": [
-    "*"
+    "onLanguage:mips"
   ],
   "main": "./extension.js",
   "contributes": {

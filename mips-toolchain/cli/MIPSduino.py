@@ -17,7 +17,7 @@ class Colors:
     BOLD = '\033[1m'
 
 def print_banner():
-    banner = f"""
+    banner = rf"""
 {Colors.CYAN}{Colors.BOLD}    ___                      ______                
    /  _/________  ____      / ____/___  ________  
    / / / ___/ __ \/ __ \    / /   / __ \/ ___/ _ \ 

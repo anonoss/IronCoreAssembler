@@ -220,7 +220,64 @@ function buildMipsFile() {
 }
 
 function showSymbolTable() {
-    vscode.window.showInformationMessage('Symbol table feature coming soon!');
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+        vscode.window.showErrorMessage('No active editor found');
+        return;
+    }
+
+    const document = editor.document;
+    if (document.languageId !== 'mips') {
+        vscode.window.showWarningMessage('Current file is not a MIPS assembly file');
+        return;
+    }
+
+    const filePath = document.fileName;
+
+    document.save().then(() => {
+        outputChannel.show(true);
+        outputChannel.clear();
+        outputChannel.appendLine(`Symbol Table for: ${path.basename(filePath)}`);
+        outputChannel.appendLine(`${'='.repeat(60)}\n`);
+
+        const execPath = getExecutablePath();
+        const workspaceFolder = vscode.workspace.workspaceFolders ?
+            vscode.workspace.workspaceFolders[0].uri.fsPath : path.dirname(filePath);
+
+        const isPythonScript = execPath.endsWith('.py');
+        let cmd, args;
+
+        if (isPythonScript) {
+            cmd = process.platform === 'win32' ? 'python' : 'python3';
+            args = [execPath, 'symbols', filePath];
+        } else {
+            cmd = execPath;
+            args = ['symbols', filePath];
+        }
+
+        const child = cp.spawn(cmd, args, {
+            cwd: workspaceFolder,
+            shell: process.platform === 'win32'
+        });
+
+        child.stdout.on('data', (data) => {
+            outputChannel.append(data.toString());
+        });
+
+        child.stderr.on('data', (data) => {
+            outputChannel.append(data.toString());
+        });
+
+        child.on('error', (error) => {
+            outputChannel.appendLine(`\nError: ${error.message}`);
+        });
+
+        child.on('close', (code) => {
+            outputChannel.appendLine(`\n${'='.repeat(60)}`);
+            outputChannel.appendLine(`Process exited with code ${code}`);
+            outputChannel.appendLine(`${'='.repeat(60)}`);
+        });
+    });
 }
 
 function deactivate() {
