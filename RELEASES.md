@@ -11,6 +11,7 @@ This release marks a significant milestone for the project, transforming it into
 - **Integrated CLI**: All utility scripts have been consolidated into the `MIPSduino` command.
 - **Enhanced Symbol Analysis**: Integrated memory address mapping and symbol table visualization.
 - **Premium Terminal UI**: Clean, colorized output with a professional banner and status indicators.
+- **Cross-Platform AI Ready**: VS Code Extension now fully supports **Cursor**, **Antigravity**, and **Web** environments.
 
 ### 🛠️ Improvements
 - **Consolidated Architecture**: Reduced file count by removing redundant shell scripts.

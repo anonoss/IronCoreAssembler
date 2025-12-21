@@ -17,13 +17,22 @@ class Colors:
     BOLD = '\033[1m'
 
 def print_banner():
-    banner = rf"""{Colors.CYAN}{Colors.BOLD}    ___                      ______                
-   /  _/________  ____      / ____/___  ________  
-   / / / ___/ __ \/ __ \    / /   / __ \/ ___/ _ \ 
- _/ / / /  / /_/ / / / /   / /___/ /_/ / /  /  __/ 
-/___//_/   \____/_/ /_/    \____/\\____/_/  \\___/  
-                                                    
-{Colors.ENDC}{Colors.BLUE}    MIPSduino Assembler v2.0{Colors.ENDC}
+    banner = rf"""{Colors.CYAN}{Colors.BOLD}                                   
+╔═════════════════════════════════════════════════════════════════════════╗
+║                                                                         ║
+║   ███╗   ███╗ ██╗ ██████╗  ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ██╗   ║
+║   ████╗ ████║ ██║ ██╔══██╗ ██╔════╝ ██╔══██╗ ██║   ██║ ██║ ████╗  ██║   ║
+║   ██╔████╔██║ ██║ ██████╔╝ ███████╗ ██║  ██║ ██║   ██║ ██║ ██╔██╗ ██║   ║
+║   ██║╚██╔╝██║ ██║ ██╔═══╝  ╚════██║ ██║  ██║ ██║   ██║ ██║ ██║╚██╗██║   ║
+║   ██║ ╚═╝ ██║ ██║ ██║      ███████║ ██████╔╝ ╚██████╔╝ ██║ ██║ ╚████║   ║
+║   ╚═╝     ╚═╝ ╚═╝ ╚═╝      ╚══════╝ ╚═════╝   ╚═════╝  ╚═╝ ╚═╝  ╚═══╝   ║
+║                                                                         ║
+║                    MicroCoreASM Hardware-Aware Assembler                ║
+║                                IRON CORE EDITION                        ║
+║                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════╝
+                                                      
+{Colors.ENDC}{Colors.BLUE}    MIPSduino Assembler - 2025 Edition{Colors.ENDC}
     {Colors.CYAN}Powered by MicroCoreASM Hardware Integration{Colors.ENDC}"""
     print(banner)
     sys.stdout.flush()

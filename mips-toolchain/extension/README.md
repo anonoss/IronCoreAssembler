@@ -1,8 +1,17 @@
 # MIPSduino: The Ultimate MIPS Assembly & Microprocessor Suite
 
+[![Latest Release](https://img.shields.io/badge/Download-Latest%20Release-blue?style=for-the-badge&logo=github)](https://github.com/anonoss/IronCoreAssembler/releases/latest)
 
 **MIPSduino** is a professional-grade, high-performance development environment for MIPS Assembly. Designed for engineers, students, and hardware enthusiasts, it bridges the gap between software simulation and physical microprocessor integration.
 
+
+## 📥 Download MIPSduino CLI
+
+The VS Code extension requires the MIPSduino CLI to be installed on your system. Download the appropriate installer for your platform:
+
+---
+
+> 📦 **Quick Start**: [Download the latest MIPSduino CLI installer](https://github.com/anonoss/IronCoreAssembler/releases) for your platform.
 ---
 
 ## 🌟 Professional Overview
@@ -43,6 +52,16 @@ MIPSduino is built for hardware. Configure your connection in seconds:
 2. Search for **MIPSduino**.
 3. Configure your **Hardware Port** (e.g., `COM3` or `/dev/ttyUSB0`) and **Baud Rate**.
 4. Click **Upload** to see your code come to life on real silicon.
+
+---
+
+## 🌐 Cross-Platform Support
+
+MIPSduino is designed to work wherever you code:
+
+- **Cursor**: Fully compatible with the Cursor AI IDE. Install via `.vsix` or search the marketplace.
+- **Antigravity**: Optimized for the Antigravity AI environment. Supports Open VSX and manual installation.
+- **Web (Chromium)**: Basic support for syntax highlighting and snippets in browser-based environments like `vscode.dev` and `github.dev`.
 
 ---
 
